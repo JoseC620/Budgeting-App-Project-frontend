@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
@@ -6,7 +6,7 @@ const API = process.env.REACT_APP_API_URL;
 
 
 
-export default function NewStatement( { statements } ) {
+export default function NewStatement() {
 
     const navigate = useNavigate();
     const [statement, setStatement] = useState({

@@ -4,12 +4,22 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 
-export default function StatementEdit( { statements, statement } ) {
+export default function StatementEdit() {
 
     const navigate = useNavigate();
     let { id } = useParams();
 
-    const [editStatement, setEditStatement] = useState(statement);
+    const [editStatement, setEditStatement] = useState({});
+
+    console.log(useParams())
+    useEffect(() => {
+      axios
+        .get(`${API}/statements/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          setEditStatement(response.data);
+        })
+    }, [id]);
 
       const handleTextChange = (event) => {
         setEditStatement({ ...editStatement, [event.target.id]: event.target.value });
@@ -17,10 +27,10 @@ export default function StatementEdit( { statements, statement } ) {
 
     const updateStatement = () => {
         axios
-          .put(`${API}/statements/${statements.indexOf(statement)}`, editStatement)
-          .then(() => {
-            navigate(`/statements`);
-          })
+          .put(`${API}/statements/${id}`, editStatement)
+           .then(() => {
+          navigate(`/statements`);
+        })
           .catch((e) => console.warn("warn", e));
       }
 
