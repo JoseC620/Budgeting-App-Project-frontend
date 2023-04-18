@@ -1,6 +1,6 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import axios from 'axios';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 const API = process.env.REACT_APP_API_URL;
 
@@ -17,10 +17,9 @@ export default function NewStatement() {
       from: "", 
       category: ""
     });
-
+    
     const unique_id = uuid();
-    const small_id = unique_id.slice(0,10);
-
+    const small_id = unique_id.slice(0,5);
 
     const handleTextChange = (event) => {
         setStatement({ ...statement, [event.target.id]: event.target.value });
@@ -40,7 +39,6 @@ export default function NewStatement() {
         event.preventDefault();
         statement.id = small_id
         addstatement(statement)
-        // navigate(`/statements/${statement.id}`);
     };
 
     return (
@@ -57,7 +55,7 @@ export default function NewStatement() {
             <label htmlFor="number">Amount:</label>
             <input
             id="amount"
-            type="text"
+            type="number"
             required
             value={statement.amount}
             onChange={handleTextChange}

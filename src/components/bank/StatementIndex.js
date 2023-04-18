@@ -6,20 +6,10 @@ const API = process.env.REACT_APP_API_URL;
 
 export default function StatementIndex() {
 
-    const [statements, setStatements] = useState([]);
     const [statement, setStatement] = useState({});
 
-    let { id } = useParams()
-
-
-    useEffect(() => {
-      axios
-        .get(`${API}/statements`)
-        .then((response) => {
-          console.log(response.data);
-          setStatements(response.data);
-        })
-    }, []);
+    let { id } = useParams();
+    let navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -33,10 +23,11 @@ export default function StatementIndex() {
     const handleDelete = () => {
         axios
         .delete(`${API}/statements/${id}`)
+        .then(() => {
+            navigate(`/statements`);
+          })
         .catch((e) => console.error(e))
        };
-
-       console.log(useParams())
 
     return (
         <div>
@@ -44,8 +35,7 @@ export default function StatementIndex() {
             {statement.amount}
             {statement.date}
             {statement.from}
-            <button onClick={handleDelete}>
-                <a href="/statements">Delete</a></button>
+            <button onClick={handleDelete}>Delete</button>
             <Link to={`/edit/${id}`}>
                 <button>Edit</button>
             </Link>

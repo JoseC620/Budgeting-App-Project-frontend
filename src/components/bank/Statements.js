@@ -16,8 +16,18 @@ export default function Statements() {
         })
     }, []);
 
+    let total = statements.reduce((a, statement) => {
+        if(statement.deposit){
+            return (a + statement.amount)
+        } else {
+            return (a - statement.amount)
+        }
+    },0)
+
+
     return (
         <div>
+            <h3 style={{color: total > 0 ? "green" : "red"}}>${total}</h3>
             {statements.map((statement) => {
                 return (
                     <div key={statement.id}>
@@ -25,7 +35,7 @@ export default function Statements() {
                         <Link to={`/statements/${statements.indexOf(statement)}`}>
                         <h3>{statement.item_name}</h3>
                         </Link>
-                        <span>{statement.amount}</span>
+                        <span style={{color: statement.deposit ? "green" : "red"}}>{!statement.deposit ? "-": ""}{statement.amount}</span>
                     </div>
                 )
             })}

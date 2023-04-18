@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -9,14 +9,19 @@ export default function StatementEdit() {
     const navigate = useNavigate();
     let { id } = useParams();
 
-    const [editStatement, setEditStatement] = useState({});
+    const [editStatement, setEditStatement] = useState({
+      id: "",
+      item_name: "",
+      amount: "",
+      date: "",
+      from: "", 
+      category: ""
+    });
 
-    console.log(useParams())
     useEffect(() => {
       axios
         .get(`${API}/statements/${id}`)
         .then((response) => {
-          console.log(response.data);
           setEditStatement(response.data);
         })
     }, [id]);
@@ -29,7 +34,7 @@ export default function StatementEdit() {
         axios
           .put(`${API}/statements/${id}`, editStatement)
            .then(() => {
-          navigate(`/statements`);
+          navigate(`/statements/${id}`);
         })
           .catch((e) => console.warn("warn", e));
       }
@@ -54,7 +59,7 @@ export default function StatementEdit() {
             <label htmlFor="number">Amount:</label>
             <input
             id="amount"
-            type="text"
+            type="number"
             required
             value={editStatement.amount}
             onChange={handleTextChange}
