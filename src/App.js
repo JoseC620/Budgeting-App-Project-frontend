@@ -7,6 +7,7 @@ import Statements from './components/bank/Statements';
 import StatementIndex from './components/bank/StatementIndex';
 import Home from './components/home/Home';
 import NewStatement from './components/bank/NewStatement';
+import StatementEdit from './components/bank/StatementEdit';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -33,9 +34,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/statements' element={<Statements statements={statements} callback={setStatement}/>}/>
-        <Route path='/statements/:id' element={<StatementIndex statement={statement}/>}/>
+        <Route path='/statements' element={<Statements statements={statements} callback={setStatement} />}/>
+        <Route path='/statements/:id' element={<StatementIndex statement={statement} />}/>
         <Route path='/new-statement' element={<NewStatement />}/>
+        <Route path='/edit/:id/' element={<StatementEdit statement={statement} />}/>
       </Routes>
 
      </Router>

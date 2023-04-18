@@ -1,51 +1,39 @@
-import { useState } from "react";
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from 'uuid';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 
-
-export default function NewStatement() {
+export default function StatementEdit( { statement } ) {
 
     const navigate = useNavigate();
-    const [statement, setStatement] = useState({
-      id: "",
-      item_name: "",
-      amount: "",
-      date: "",
-      from: "", 
-      category: ""
-    });
+    let { id } = useParams();
 
-    const unique_id = uuid();
-    const small_id = unique_id.slice(0,10)
+    const [editStatement, setEditStatement] = useState(statement);
 
-    const handleTextChange = (event) => {
-        setStatement({ ...statement, [event.target.id]: event.target.value });
+      const handleTextChange = (event) => {
+        setEditStatement({ ...editStatement, [event.target.id]: event.target.value });
       };
-    
-    const addstatement = (newstatement) => {
+
+    const updateStatement = () => {
         axios
-        .post(`${API}/statements`, newstatement)
-        .catch((c) => console.error("catch", c))
-      };
-    
-    
-    const handleSubmit = (event) => {
+          .put(`${API}/statements/${id}`, editStatement)
+          .catch((e) => console.warn("warn", e));
+      }
+
+      const handleSubmit = (event) => {
         event.preventDefault();
-        statement.id = small_id
-        addstatement(statement)
-        navigate(`/statements/${statement.id}`);
-    };
+        updateStatement(editStatement);
+      };
+
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
              id="item_name"
-             value={statement.item_name}
+             value={editStatement.item_name}
              type="text"
              onChange={handleTextChange}
              required
@@ -55,7 +43,7 @@ export default function NewStatement() {
             id="amount"
             type="text"
             required
-            value={statement.amount}
+            value={editStatement.amount}
             onChange={handleTextChange}
         />
         <label htmlFor="date">Date:</label>
@@ -63,7 +51,7 @@ export default function NewStatement() {
           id="date"
           name="date"
           type="text"
-          value={statement.date}
+          value={editStatement.date}
           onChange={handleTextChange}
         />
          <label htmlFor="from">From:</label>
@@ -71,7 +59,7 @@ export default function NewStatement() {
           id="from"
           name="from"
           type="text"
-          value={statement.from}
+          value={editStatement.from}
           onChange={handleTextChange}
         />
         <label htmlFor="category">Category:</label>
@@ -79,7 +67,7 @@ export default function NewStatement() {
           id="category"
           type="text"
           name="category"
-          value={statement.category}
+          value={editStatement.category}
           onChange={handleTextChange}
         />
         <br />
@@ -87,4 +75,4 @@ export default function NewStatement() {
       </form>
         </div>
     )
-};
+}
