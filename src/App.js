@@ -35,7 +35,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/statements' element={<Statements statements={statements} callback={setStatement} />}/>
-        <Route path='/statements/:id' element={<StatementIndex statement={statement} />}/>
+        <Route path='/statements/:id' element={<StatementIndex statements={statements} statement={statement} />}/>
         <Route path='/new-statement' element={<NewStatement />}/>
         <Route path='/edit/:id/' element={<StatementEdit statement={statement} />}/>
       </Routes>

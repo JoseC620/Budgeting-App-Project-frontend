@@ -3,14 +3,12 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 
-export default function StatementIndex( { statement } ) {
-
-    let { id } = useParams();
+export default function StatementIndex( { statement, statements } ) {
 
 
     const handleDelete = () => {
         axios
-        .delete(`${API}/statements/${id}`)
+        .delete(`${API}/statements/${statements.indexOf(statement)}`)
         .catch((e) => console.error(e))
        };
 
@@ -23,7 +21,7 @@ export default function StatementIndex( { statement } ) {
             {statement.date}
             {statement.from}
             <button onClick={handleDelete}>
-            <a href="/statements">Delete</a></button>
+                <a href="/statements">Delete</a></button>
             <Link to="/edit/:id/">
                 <button>Edit</button>
             </Link>
