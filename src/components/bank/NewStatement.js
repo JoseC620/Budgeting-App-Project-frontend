@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 const API = process.env.REACT_APP_API_URL;
 
 
 
-export default function NewStatement() {
+export default function NewStatement( { statements } ) {
 
     const navigate = useNavigate();
     const [statement, setStatement] = useState({
@@ -19,15 +19,19 @@ export default function NewStatement() {
     });
 
     const unique_id = uuid();
-    const small_id = unique_id.slice(0,10)
+    const small_id = unique_id.slice(0,10);
+
 
     const handleTextChange = (event) => {
         setStatement({ ...statement, [event.target.id]: event.target.value });
       };
     
-    const addstatement = (newstatement) => {
+    const addstatement = () => {
         axios
-        .post(`${API}/statements`, newstatement)
+        .post(`${API}/statements`, statement)
+        .then(() => {
+          navigate(`/statements`);
+        })
         .catch((c) => console.error("catch", c))
       };
     
@@ -36,7 +40,7 @@ export default function NewStatement() {
         event.preventDefault();
         statement.id = small_id
         addstatement(statement)
-        navigate(`/statements/${statement.id}`);
+        // navigate(`/statements/${statement.id}`);
     };
 
     return (

@@ -4,7 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 
-export default function StatementEdit( { statement } ) {
+export default function StatementEdit( { statements, statement } ) {
 
     const navigate = useNavigate();
     let { id } = useParams();
@@ -17,7 +17,10 @@ export default function StatementEdit( { statement } ) {
 
     const updateStatement = () => {
         axios
-          .put(`${API}/statements/${id}`, editStatement)
+          .put(`${API}/statements/${statements.indexOf(statement)}`, editStatement)
+          .then(() => {
+            navigate(`/statements`);
+          })
           .catch((e) => console.warn("warn", e));
       }
 
