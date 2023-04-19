@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css"
 
 
-export default function Navbar() {
+export default function Navbar( { total } ) {
 
 
 
@@ -26,6 +26,8 @@ export default function Navbar() {
             <Link to="/statements">
                 <span>All Statements</span>
             </Link>
+
+            <h3>Bank Account: ${total}</h3>
             </ul>
 
         </div>

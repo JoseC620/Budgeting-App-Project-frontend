@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import "./Statements.css"
 const API = process.env.REACT_APP_API_URL;
 
-export default function Statements() {
+export default function Statements( { callback } ) {
 
     const [statements, setStatements] = useState([]);
 
