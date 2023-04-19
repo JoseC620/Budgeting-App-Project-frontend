@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    gap: 50px;
+    margin-left: 100px;
+}
+
+.proj {
+    margin-left: 70px;
+}
+
+.whole {
+    border: 3px solid;
+    background-color: aquamarine;
+}

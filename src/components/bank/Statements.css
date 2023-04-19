@@ -1,0 +1,15 @@
+.transactions {
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    gap: 100px;
+}
+
+.money {
+    display: flex;
+}
+
+.total {
+    display: flex;
+    margin-left: 70px;
+}

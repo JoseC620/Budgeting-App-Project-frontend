@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
+import "./StatementEdit.css"
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -12,10 +13,11 @@ export default function NewStatement() {
     const [statement, setStatement] = useState({
       id: "",
       item_name: "",
-      amount: "",
+      amount: Number,
       date: "",
       from: "", 
-      category: ""
+      category: "",
+      deposit: false
     });
     
     const unique_id = uuid();
@@ -24,7 +26,13 @@ export default function NewStatement() {
     const handleTextChange = (event) => {
         setStatement({ ...statement, [event.target.id]: event.target.value });
       };
+
+    const handleCheckboxChange = () => {
+        setStatement({ ...statement, deposit: !statement.deposit });
+      };
     
+
+
     const addstatement = () => {
         axios
         .post(`${API}/statements`, statement)
@@ -42,8 +50,8 @@ export default function NewStatement() {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="entire">
+            <form className="edit" onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
              id="item_name"
@@ -84,6 +92,15 @@ export default function NewStatement() {
           value={statement.category}
           onChange={handleTextChange}
         />
+          <label htmlFor="deposit">Deposit:</label>
+          <input
+          className="check"
+          id="deposit"
+          name="deposit"
+          type="checkbox"
+          onChange={handleCheckboxChange}
+          checked={statement.deposit}
+          />
         <br />
         <input type="submit"/>
       </form>

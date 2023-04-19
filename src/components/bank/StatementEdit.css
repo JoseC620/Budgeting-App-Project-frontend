@@ -1,0 +1,18 @@
+.entire {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    row-gap: 15px;
+}
+
+.check {
+    width: 25px;
+    height: 25px;
+}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "./StatementEdit.css"
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -30,6 +31,10 @@ export default function StatementEdit() {
         setEditStatement({ ...editStatement, [event.target.id]: event.target.value });
       };
 
+      const handleCheckboxChange = () => {
+        setEditStatement({ ...editStatement, deposit: !editStatement.deposit });
+      };
+
     const updateStatement = () => {
         axios
           .put(`${API}/statements/${id}`, editStatement)
@@ -46,8 +51,8 @@ export default function StatementEdit() {
 
 
     return (
-        <div>
-         <form onSubmit={handleSubmit}>
+        <div className="entire">
+         <form className="edit" onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
              id="item_name"
@@ -88,9 +93,18 @@ export default function StatementEdit() {
           value={editStatement.category}
           onChange={handleTextChange}
         />
-        <br />
+        <label htmlFor="deposit">Deposit:</label>
+        <input
+          className="check"
+          id="deposit"
+          name="deposit"
+          type="checkbox"
+          onChange={handleCheckboxChange}
+          checked={editStatement.deposit}
+        />
+        <br></br>
         <input type="submit"/>
-      </form>
+        </form>
         </div>
     )
 }

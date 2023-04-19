@@ -6,6 +6,7 @@ import StatementIndex from './components/bank/StatementIndex';
 import Home from './components/home/Home';
 import NewStatement from './components/bank/NewStatement';
 import StatementEdit from './components/bank/StatementEdit';
+import Error from './components/error/Error';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/statements/:id' element={<StatementIndex />}/>
         <Route path='/new-statement' element={<NewStatement />}/>
         <Route path='/edit/:id' element={<StatementEdit />}/>
+        <Route path='/*' element={<Error />}/>
       </Routes>
      </Router>
     </div>

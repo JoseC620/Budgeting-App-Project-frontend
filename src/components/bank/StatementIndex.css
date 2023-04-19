@@ -1,0 +1,7 @@
+.stuff {
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    gap: 80px;
+    margin-top: 20px;
+}
