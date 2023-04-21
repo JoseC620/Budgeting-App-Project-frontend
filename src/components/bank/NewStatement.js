@@ -13,7 +13,7 @@ export default function NewStatement() {
     const [statement, setStatement] = useState({
       id: "",
       item_name: "",
-      amount: Number(""),
+      amount: 0,
       date: "",
       from: "", 
       category: "",
