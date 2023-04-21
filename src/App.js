@@ -13,7 +13,6 @@ const API = process.env.REACT_APP_API_URL;
 
 function App() {
 
-  const [statements, setStatements] = useState([]);
   const [total, setTotal] = useState()
 
   useEffect(() => {
@@ -21,12 +20,7 @@ function App() {
       .get(`${API}/statements`)
       .then((response) => {
         console.log(response.data);
-        setStatements(response.data);
-      })
-      .then(() => {
-
-        setTotal(statements.reduce((a, statement) => {
-       
+        setTotal(response.data.reduce((a, statement) => {
            if(statement.deposit){
                return (a + Number(statement.amount))
            } else {
@@ -34,7 +28,7 @@ function App() {
            }
        },0))
       })
-  }, [statements]);
+  }, []);
 
 
 
