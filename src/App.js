@@ -14,6 +14,7 @@ const API = process.env.REACT_APP_API_URL;
 function App() {
 
   const [statements, setStatements] = useState([]);
+  const [total, setTotal] = useState()
 
   useEffect(() => {
     axios
@@ -22,16 +23,19 @@ function App() {
         console.log(response.data);
         setStatements(response.data);
       })
-  }, []);
+      .then(() => {
 
-  let total = statements.reduce((a, statement) => {
-  
-      if(statement.deposit){
-          return (a + Number(statement.amount))
-      } else {
-          return (a - Number(statement.amount))
-      }
-  },0)
+        setTotal(statements.reduce((a, statement) => {
+       
+           if(statement.deposit){
+               return (a + Number(statement.amount))
+           } else {
+               return (a - Number(statement.amount))
+           }
+       },0))
+      })
+  }, [statements]);
+
 
 
 
